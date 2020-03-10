@@ -1,0 +1,25 @@
+{
+  "name": "tangjun/json-rpc-http",
+  "description": "A laravel package of sjson-rpc-http",
+  "keywords": ["laravel","json-rpc-http"],
+
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "tangjun",
+      "email": "469307838@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "datto/json-rpc": "^6.1",
+    "datto/json-rpc-http": "^5.0"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "TangJun\\SysAuditLog\\": "src/"
+    }
+  }
+ 
+}
