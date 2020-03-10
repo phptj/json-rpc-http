@@ -5,7 +5,7 @@ Laravel 5 json-rpc-http操作
 ## 安装
 
 可以通过 [Composer](http://getcomposer.org) 安装
-`tangjun/operation-log`， 在`composer.json`require部分引入，然后执行 ```composer install```或```composer update```（注意 ：composer update会更新你其他没有固定本部的组件）.
+`tangjun/json-rpc-http`， 在`composer.json`require部分引入，然后执行 ```composer install```或```composer update```（注意 ：composer update会更新你其他没有固定本部的组件）.
 
 ```json
 {
@@ -31,7 +31,7 @@ composer require tangjun/json-rpc-http
 要使用sys-audit-log服务提供程序，在引导Laravel应用程序时必须注册该提供程序。有
 基本上有两种方法。
 
-Find the `providers` key in `config/app.php` and register the ActionLog Service Provider.
+Find the `providers` key in `config/app.php` and register the JsonRpcHttpClient Service Provider.
 
 Laravel 5.1+
 ```php
