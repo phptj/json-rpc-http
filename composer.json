@@ -1,6 +1,6 @@
 {
   "name": "tangjun/json-rpc-http",
-  "description": "A laravel package of sjson-rpc-http",
+  "description": "A laravel package of json-rpc-http",
   "keywords": ["laravel","json-rpc-http"],
 
   "license": "MIT",
