@@ -11,7 +11,7 @@ Laravel 5 json-rpc-http操作
 {
     "require": {
        
-        "tangjun/json-rpc-http": "~1.0"
+        "tangjun/json-rpc-http": "~1.01"
         
     }
    
