@@ -1,5 +1,5 @@
-# operation-log
-Laravel 5 操作日志自动记录
+# json-rpc-http
+Laravel 5 json-rpc-http操作
 
 
 ## 安装
@@ -11,7 +11,7 @@ Laravel 5 操作日志自动记录
 {
     "require": {
        
-        "tangjun/operation-log": "~1.0"
+        "tangjun/json-rpc-http": "~1.0"
         
     }
    
@@ -22,7 +22,7 @@ Laravel 5 操作日志自动记录
 
 项目根目录执行:
 ```
-composer require tangjun/operation-log
+composer require tangjun/json-rpc-http
 ```
 
 
@@ -37,20 +37,9 @@ Laravel 5.1+
 ```php
     'providers' => [
         // ...
-        TangJun\SysAuditLog\SysAuditLogServiceProvider::class,
+        TangJun\JsonRpcHttp\JsonRpcHttpServiceProvider::class,
     ]
 ```
-
-Find the `aliases` key in `config/app.php`.
-
-Laravel 5.1+
-```php
-    'aliases' => [
-        // ...
-        'SysAuditLog' => TangJun\SysAuditLog\Facades\SysAuditLogFacade::class,
-    ]
-```
-
 
 
 ## 配置
@@ -59,53 +48,61 @@ Laravel 5.1+
 
 ```$ php artisan vendor:publish```
 
-`config/sysauditlog.php`
+`config/rpc-services.php`
 
 ```php
-	//填写要记录的日志的模型名称
-	return [
-	    'entities'=>
-            [
-		        '\App\Models\Users',
-	        ]
-    ];
+$services = [
+    [
+        'services' => [
+            'CalculatorService',
+            'ProductService',
+        ],
+        'nodes' => [
+            ['host' => '127.0.0.1', 'port' => 9503],
+            ['host' => '127.0.0.1', 'port' => 9503]
+        ]
+    ]
+];
+
+return [
+    'services' => $services
+];
 
 ```
-## 创建记录表
-run:
-```$ php artisan migrate```
+## 使用
+```
+use TangJun\JsonRpcHttp\JsonRpcHttpClient;
 
-## Demo
-自动记录操作日志，数据库操作需按如下:
-```php
+class a extends JsonRpcHttpClient {
+    /**
+     * The service name of the target service.
+     *
+     * @var string
+     */
+    protected $serviceName = 'ProductService';
 
-update
+    /**
+     * The protocol of the target service, this protocol name
+     *
+     * @var string
+     */
+    protected $protocol = 'jsonrpc-http';
 
-$users = Users::find(1);
-$users->name = "myname";
-$users->save();
 
-add
+    // 实现一个加法方法，这里简单的认为参数都是 int 类型
+    public function list($where,$select,$page,$perPage)
+    {
+        return $this->__request(__FUNCTION__,compact('where','select','page','perPage'));
+    }
 
-$users = new Users();
-$users->name = "myname";
-$users->save()
+}
 
-delete
+$a = new a();
 
-Users:destroy(1);
+$resp = $a->list(" id > 10001 and status > 0 ",['id'],1,10);
 
 ```
 
-主动记录操作日志
-
-```php
-
-use SysAuditLog
-
-SysAuditLog::createActionLog(Array $data,$action);
-
-```
 
 
 
